@@ -1,0 +1,48 @@
+stages:
+  - build
+  - deploy
+
+before_script:
+  - "$LATEST_TAG=$(git describe --abbrev=0)"
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+    - when: never
+
+packer:
+  stage: build
+  before_script:
+    - 'Remove-Item -Path .\build\ -Recurse -Force; $exit_code = $?'
+  script:
+    - "packer build -timestamp-ui -force ws2022.json"
+    - '$ovf = Get-ChildItem .\build\*.ovf'
+    - 'ovftool $($ovf.FullName) .\build\$($ovf.BaseName).ova'
+  tags:
+    - packer
+    - windows
+    - ovftool
+  cache:
+    paths:
+      - packer_cache/
+  artifacts:
+    paths:
+      - "build/*.ova"
+    expire_in: 1 hours
+  rules:
+    - when: on_success
+
+copytosmb:
+  stage: deploy
+  script:
+    - 'Move-Item -Path .\build\*.ova -Destination
+      $SMB_PATH\UBUNTULTS-$LATEST_TAG-$(Get-Date -Format "yyMMdd")-$CI_PIPELINE_IID.ova'
+  tags:
+    - packer
+    - windows
+    - ovftool
+  rules:
+    - if: $SMB_PATH
+      when: on_success
+    - when: never
