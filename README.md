@@ -68,26 +68,28 @@ This Packer configuration file allows you to build images for VMware Workstation
 
 ### Configure Build Variables
 
-There are some variables which can be changed before building at the top of the `ws2022.json` file.
+There are some variables which can be changed before building at the top of the `ws2022.pkr.hcl` file.
 You can overwrite these variables in the file, in a variable file or via commandline.
 
-See the [Packer documentation on user variables](https://www.packer.io/docs/templates/legacy_json_templates/user-variables) for details.
+See the [Packer documentation on user variables](https://www.packer.io/docs/templates/hcl_templates/variables) for details.
 
-A lot of these variables default to environment variables (`env VARIABLE_NAME`) so that I can use automated builds with Gitlab-CI.
-You can either set these variables in your build environment or overwrite the defaults like described above.
+A lot of these variables are required for the build but do not have default values. 
+In this case packer will search for environment variables starting with `PKR_VAR_`, e.g. `PKR_VAR_vcenter_server`. 
+This is used in the automated builds with Gitlab-CI.
+You can either set these environment variables in your build environment or overwrite the defaults like described above.
 
-| Packer Variable      | Default Value                   | Description                                                                                                                                                    |
-| -------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `iso_url`            | `https://...`                   | Link to the WS2022 installation ISO file (see `ws2022.json`)                                                                                                   |
-| `iso_checksum`       | `sha256:....`                   | SHA256 checksum of above ISO file (see `ws2022.json`)                                                                                                          |
-| `vcenter_server`     | `env PACKER_VCENTER_USER`       | VMware vSphere vCenter to connect to for building with the `vsphere-iso` builder                                                                               |
-| `vcenter_user`       | `env PACKER_VCENTER_USER`       | The user to connect with to the vCenter                                                                                                                        |
-| `vcenter_password`   | `env PACKER_VCENTER_PASSWORD`   | Above user's password                                                                                                                                          |
-| `vcenter_datacenter` | `env PACKER_VCENTER_DATACENTER` | The name of the vSphere datacenter to build in                                                                                                                 |
-| `esx_host`           | `env PACKER_ESX_HOST`           | The ESX to build on                                                                                                                                            |
-| `esx_user`           | `env PACKER_ESX_USER`           | User to connect to above ESX                                                                                                                                   |
-| `esx_password`       | `PACKER_ESX_PASSWORD`           | Above user's password                                                                                                                                          |
-| -                    | `SMB_PATH`                      | Only for Gitlab-CI build. The UNC path to the SMB share where to put the resulting OVA file - the user running Gitlab-Runner must have write access (optional) |
+| Packer Variable      | Default Value | Description                                                                                                                                                    |
+| -------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `iso_url`            | `https://...` | Link to the WS2022 installation ISO file (see `ws2022.pkr.hcl`)                                                                                                   |
+| `iso_checksum`       | `sha256:....` | SHA256 checksum of above ISO file (see `ws2022.pkr.hcl`)                                                                                                          |
+| `vcenter_server`     | NONE          | VMware vSphere vCenter to connect to for building with the `vsphere-iso` builder                                                                               |
+| `vcenter_user`       | NONE          | The user to connect with to the vCenter                                                                                                                        |
+| `vcenter_password`   | NONE          | Above user's password                                                                                                                                          |
+| `vcenter_datacenter` | NONE          | The name of the vSphere datacenter to build in                                                                                                                 |
+| `esx_host`           | NONE          | The ESX to build on                                                                                                                                            |
+| `esx_user`           | NONE          | User to connect to above ESX                                                                                                                                   |
+| `esx_password`       | NONE          | Above user's password                                                                                                                                          |
+| -                    | `SMB_PATH`    | Only for Gitlab-CI build. The UNC path to the SMB share where to put the resulting OVA file - the user running Gitlab-Runner must have write access (optional) |
 
 ### How to use Packer
 
@@ -95,7 +97,7 @@ To create a Windows Server VM image using a vSphere ESX host:
 
 ```sh
 cd <path-to-git-root-directory>
-packer build ws2022.json
+packer build ws2022.pkr.hcl
 ```
 
 Wait for the build to finish to find the generated OVA file in the `build` folder.

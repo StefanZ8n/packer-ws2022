@@ -4,6 +4,8 @@ stages:
 
 before_script:
   - "$LATEST_TAG=$(git describe --abbrev=0)"
+  - '$BUILD_NAME=WS2022-$LATEST_TAG-$(Get-Date -Format "yyMMdd")-$CI_PIPELINE_IID'
+  - '$PKR_VAR_BUILD_NAME=$BUILD_NAME'
 
 workflow:
   rules:
@@ -16,7 +18,8 @@ packer:
   before_script:
     - 'Remove-Item -Path .\build\ -Recurse -Force; $exit_code = $?'
   script:
-    - "packer build -timestamp-ui -force ws2022.json"
+    - "packer init"
+    - "packer build -timestamp-ui -force ws2022.pkr.hcl"
     - '$ovf = Get-ChildItem .\build\*.ovf'
     - 'ovftool $($ovf.FullName) .\build\$($ovf.BaseName).ova'
   tags:
