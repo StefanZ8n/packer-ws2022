@@ -18,7 +18,7 @@ packer:
   before_script:
     - 'Remove-Item -Path .\build\ -Recurse -Force; $exit_code = $?'
   script:
-    - "packer init"
+    - "packer init -upgrade ws2022.pkr.hcl"
     - "packer build -timestamp-ui -force ws2022.pkr.hcl"
     - '$ovf = Get-ChildItem .\build\*.ovf'
     - 'ovftool $($ovf.FullName) .\build\$($ovf.BaseName).ova'
