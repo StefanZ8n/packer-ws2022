@@ -122,7 +122,7 @@ source "vsphere-iso" "ws2022" {
   cpu_cores            = "${var.numcores}"
   datacenter           = "${var.vcenter_datacenter}"
   disk_controller_type = "pvscsi"
-  export = {
+  export {
     force            = true
     output_directory = "./build"
   }
