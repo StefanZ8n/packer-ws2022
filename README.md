@@ -7,8 +7,8 @@ This Packer configuration file allows you to build images for VMware Workstation
 
 ## Prerequisites
 
-* [Packer](https://www.packer.io/downloads.html) to run the build process
-* [VMware ESXI](https://www.vmware.com/de/products/esxi-and-esx.html) to build on
+* [Packer](https://www.packer.io/downloads) to run the build process
+* [VMware vCenter](https://www.vmware.com/products/vcenter-server.html) and [VMware ESXI](https://www.vmware.com/products/esxi-and-esx.html) to build on
 * [VMware OVF Tool](https://www.vmware.com/support/developer/ovf/) to create the OVA from the generated VM
 
 ## Build process
@@ -71,7 +71,7 @@ This Packer configuration file allows you to build images for VMware Workstation
 There are some variables which can be changed before building at the top of the `ws2022.json` file.
 You can overwrite these variables in the file, in a variable file or via commandline.
 
-See the [Packer documentation on user variables](https://www.packer.io/docs/templates/user-variables.html) for details.
+See the [Packer documentation on user variables](https://www.packer.io/docs/templates/legacy_json_templates/user-variables) for details.
 
 A lot of these variables default to environment variables (`env VARIABLE_NAME`) so that I can use automated builds with Gitlab-CI.
 You can either set these variables in your build environment or overwrite the defaults like described above.
