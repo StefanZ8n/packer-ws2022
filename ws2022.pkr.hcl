@@ -101,7 +101,7 @@ variable "vm_name" {
 variable "vm_notes" {
   type    = string
   default = "${var.BUILD_NAME}, Stefan Zimmermann"
-  description = "
+  description = "Notes appearing for each deployed VM"
 }
 
 packer {
@@ -159,7 +159,7 @@ source "vsphere-iso" "ws2022" {
 
 build {
   name = "ws2022"
-  
+
   sources = ["source.vsphere-iso.ws2022"]
 
   provisioner "powershell" {
