@@ -114,12 +114,12 @@ packer {
 }
 
 source "vsphere-iso" "ws2022" {
-  CPUs                 = ${var.numcores}
-  RAM                  = ${var.memsize}
+  CPUs                 = "${var.numcores}"
+  RAM                  = "${var.memsize}"
   boot_command         = ["w"]
   boot_wait            = "${var.boot_wait}"
   communicator         = "ssh"
-  cpu_cores            = ${var.numcores}
+  cpu_cores            = "${var.numcores}"
   datacenter           = "${var.vcenter_datacenter}"
   disk_controller_type = ["pvscsi"]
   export {
@@ -148,7 +148,7 @@ source "vsphere-iso" "ws2022" {
   ssh_timeout               = "1h"
   ssh_username              = "${var.os_user}"
   storage {
-    disk_size             = ${var.disk_size}
+    disk_size             = "${var.disk_size}"
     disk_thin_provisioned = true
   }
   username       = "${var.vcenter_user}"
