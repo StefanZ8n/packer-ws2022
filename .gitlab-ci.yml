@@ -39,8 +39,7 @@ packer:
 copytosmb:
   stage: deploy
   script:
-    - 'Move-Item -Path .\build\*.ova -Destination
-      $SMB_PATH\WS2022-$LATEST_TAG-$(Get-Date -Format "yyMMdd")-$CI_PIPELINE_IID.ova'
+    - 'Move-Item -Path .\build\*.ova -Destination $SMB_PATH\$BUILD_NAME.ova'
   tags:
     - packer
     - windows
