@@ -1,2 +1,5 @@
+v2.0.0 - ??
+* Changed from .json to .pkr.hcl HCL2 build template
+
 v1.0.0 - 09.11.2021
 * Initial version
