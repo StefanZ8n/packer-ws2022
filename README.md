@@ -9,7 +9,7 @@ This Packer configuration file allows you to build images for VMware Workstation
 
 * [Packer](https://www.packer.io/downloads) to run the build process
 * [VMware vCenter](https://www.vmware.com/products/vcenter-server.html) and [VMware ESXI](https://www.vmware.com/products/esxi-and-esx.html) to build on
-* [VMware OVF Tool](https://www.vmware.com/support/developer/ovf/) to create the OVA from the generated VM
+* `tar` for building an OVA from the export OVF files
 
 ## Build process
 
@@ -51,20 +51,11 @@ This Packer configuration file allows you to build images for VMware Workstation
 
 ## HowTo
 
-### Prepare Build ESX Server
+### Requirements
 
-* Default ESXi installation (can be nested)
-* Enable SSH service
-* Configure guest IP hack via SSH: 
-  ```sh
-  esxcli system settings advanced set -o /Net/GuestIPHack -i 1
-  ```
-
-### Prepare Build Host
-
-* Must be Windows (for VMware's `ovftool`)
-* Install Packer
-* Install VMware OVA Tool and add the installation path to `%PATH%` to find `ovftool`
+* ESX added to vCenter to build on
+* Buildhost with packer installed (run `packer init`-command before building)
+* For creating an OVA automatically (`gitlab-ci` build): tar
 
 ### Configure Build Variables
 

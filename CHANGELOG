@@ -1,5 +1,6 @@
-v2.0.0 - ??
+v2.0.0 - 14.01.2022
 * Changed from .json to .pkr.hcl HCL2 build template
+* Removed `ovftool` dependency in build pipeline
 
 v1.0.0 - 09.11.2021
 * Initial version

@@ -20,12 +20,10 @@ packer:
   script:
     - "packer init -upgrade ws2022.pkr.hcl"
     - "packer build -timestamp-ui -force ws2022.pkr.hcl"
-    - '$ovf = Get-ChildItem .\build\*.ovf'
-    - 'ovftool $($ovf.FullName) .\build\$($ovf.BaseName).ova'
+    - 'tar -C build/ -cvf build/$($BUILD_NAME).ova *.mf *.ovf *.vmdk'
   tags:
     - packer
-    - windows
-    - ovftool
+    - tar
   cache:
     paths:
       - packer_cache/
@@ -41,9 +39,7 @@ copytosmb:
   script:
     - 'Move-Item -Path .\build\*.ova -Destination $SMB_PATH\$BUILD_NAME.ova'
   tags:
-    - packer
     - windows
-    - ovftool
   rules:
     - if: $SMB_PATH
       when: on_success
