@@ -5,3 +5,4 @@ output-vmware-iso/
 
 # For built boxes
 *.box
+build/
