@@ -76,10 +76,11 @@ You can either set these environment variables in your build environment or over
 | `vcenter_server`        | NONE          | VMware vSphere vCenter to connect to for building with the `vsphere-iso` builder |
 | `vcenter_user`          | NONE          | The user to connect with to the vCenter                                          |
 | `vcenter_password`      | NONE          | Above user's password                                                            |
-| `vcenter_datacenter`    | NONE          | The name of the vSphere datacenter to build in                                   |
-| `vcenter_cluster`       | NONE          | The name of the cluster to build in                                              |
-| `vcenter_resource_pool` | NONE          | The resource pool to create the VM in, if not specified uses the default pool    |
-| `esx_host`              | NONE          | The ESX to build on                                                              |
+| `vcenter_datacenter`    | `null`        | The name of the vSphere datacenter to build in                                   |
+| `vcenter_cluster`       | `null`        | The name of the cluster to build in                                              |
+| `vcenter_resource_pool` | `null`        | The resource pool to create the VM in, if not specified uses the default pool    |
+| `vcenter_datastore`     | `null`        | The resource pool to create the VM in, if not specified uses the default pool    |
+| `esx_host`              | `null`        | The ESX to build on                                                              |
 
 To specify the right vCenter parameters, check the [vsphere-iso documentation](https://www.packer.io/plugins/builders/vsphere/vsphere-iso#working-with-clusters-and-hosts)
 

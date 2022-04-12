@@ -18,25 +18,31 @@ variable "vcenter_password" {
 variable "vcenter_datacenter" {
   type    = string
   description = "The name of the datacenter within vCenter to build in"
-  default = ""
+  default = null
 }
 
 variable "vcenter_cluster" {
   type    = string
   description = "The name of the cluster to build in"
-  default = ""
+  default = null
 }
 
 variable "vcenter_resource_pool" {
   type    = string
   description = "The name of the resource pool to build in"
-  default = ""
+  default = null
+}
+
+variable "vcenter_datastore" {
+  type    = string
+  description = "The name of the resource pool to build in"
+  default = null
 }
 
 variable "esx_host" {
   type    = string
   description = "The hostname of the ESX to build on"
-  default = ""
+  default = null
 }
 
 # Other variables for easy adaption
@@ -123,6 +129,7 @@ source "vsphere-iso" "ws2022" {
   datacenter          = "${var.vcenter_datacenter}"
   cluster             = "${var.vcenter_cluster}"
   host                = "${var.esx_host}"
+  datastore           = "${var.vcenter_datastore}"
 
   CPUs                 = "${var.numcores}"
   RAM                  = "${var.memsize}"
