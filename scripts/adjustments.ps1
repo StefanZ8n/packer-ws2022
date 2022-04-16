@@ -35,4 +35,5 @@ choco install -y notepadplusplus.install
 
 # Enable PowerShell core as the default SSH Shell
 # See https://gitlab.com/DarwinJS/ChocoPackages/-/blob/master/openssh/tools/Set-SSHDefaultShell.ps1
-. $env:programfiles\OpenSSH-Win64\Set-SSHDefaultShell.ps1 -PathSpecsToProbeForShellEXEString "$env:programfiles\PowerShell\*\pwsh.exe;$env:programfiles\PowerShell\*\Powershell.exe;c:\windows\system32\windowspowershell\v1.0\powershell.exe"
+If (Test-Path "C:\Program Files\openssh-win64\Set-SSHDefaultShell.ps1")
+    { & "C:\Program Files\openssh-win64\Set-SSHDefaultShell.ps1" -PathSpecsToProbeForShellEXEString "$env:programfiles\PowerShell\*\pwsh.exe;$env:programfiles\PowerShell\*\Powershell.exe;c:\windows\system32\windowspowershell\v1.0\powershell.exe" }
