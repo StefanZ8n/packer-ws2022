@@ -1,4 +1,4 @@
-v2.1.0 - IN DEVELOPMENT
+v2.1.0 - 30.05.2022
 * Updated packer build variables to be able to build on DRS clusters
 - Cleaned some unused build variables
 
