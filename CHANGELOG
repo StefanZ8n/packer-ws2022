@@ -1,3 +1,7 @@
+v2.1.0 - 30.05.2022
+* Updated packer build variables to be able to build on DRS clusters
+- Cleaned some unused build variables
+
 v2.0.0 - 14.01.2022
 * Changed from .json to .pkr.hcl HCL2 build template
 * Removed `ovftool` dependency in build pipeline

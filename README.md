@@ -69,18 +69,26 @@ In this case packer will search for environment variables starting with `PKR_VAR
 This is used in the automated builds with Gitlab-CI.
 You can either set these environment variables in your build environment or overwrite the defaults like described above.
 
-| Packer Variable      | Default Value | Description                                                                                                                                                    |
-| -------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `iso_url`            | `https://...` | Link to the WS2022 installation ISO file (see `ws2022.pkr.hcl`)                                                                                                   |
-| `iso_checksum`       | `sha256:....` | SHA256 checksum of above ISO file (see `ws2022.pkr.hcl`)                                                                                                          |
-| `vcenter_server`     | NONE          | VMware vSphere vCenter to connect to for building with the `vsphere-iso` builder                                                                               |
-| `vcenter_user`       | NONE          | The user to connect with to the vCenter                                                                                                                        |
-| `vcenter_password`   | NONE          | Above user's password                                                                                                                                          |
-| `vcenter_datacenter` | NONE          | The name of the vSphere datacenter to build in                                                                                                                 |
-| `esx_host`           | NONE          | The ESX to build on                                                                                                                                            |
-| `esx_user`           | NONE          | User to connect to above ESX                                                                                                                                   |
-| `esx_password`       | NONE          | Above user's password                                                                                                                                          |
-| -                    | `SMB_PATH`    | Only for Gitlab-CI build. The UNC path to the SMB share where to put the resulting OVA file - the user running Gitlab-Runner must have write access (optional) |
+| Packer Variable         | Default Value | Description                                                                      |
+| ----------------------- | ------------- | -------------------------------------------------------------------------------- |
+| `iso_url`               | `https://...` | Link to the WS2022 installation ISO file (see `ws2022.pkr.hcl`)                  |
+| `iso_checksum`          | `sha256:....` | SHA256 checksum of above ISO file (see `ws2022.pkr.hcl`)                         |
+| `vcenter_server`        | NONE          | VMware vSphere vCenter to connect to for building with the `vsphere-iso` builder |
+| `vcenter_user`          | NONE          | The user to connect with to the vCenter                                          |
+| `vcenter_password`      | NONE          | Above user's password                                                            |
+| `vcenter_datacenter`    | `null`        | The name of the vSphere datacenter to build in                                   |
+| `vcenter_cluster`       | `null`        | The name of the cluster to build in                                              |
+| `vcenter_resource_pool` | `null`        | The resource pool to create the VM in, if not specified uses the default pool    |
+| `vcenter_datastore`     | `null`        | The resource pool to create the VM in, if not specified uses the default pool    |
+| `esx_host`              | `null`        | The ESX to build on                                                              |
+
+To specify the right vCenter parameters, check the [vsphere-iso documentation](https://www.packer.io/plugins/builders/vsphere/vsphere-iso#working-with-clusters-and-hosts)
+
+The following variables are only taken into consideration on a Gitlab-CI build (see `.gitlab-ci.yml`) and not relevant if the packer build is called locally.
+
+| Gitlab-CI variable | Default Value | Description                                                                                                                    |
+| ------------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `SMB_PATH`         | NONE          | Optional UNC path to the SMB share where to put the resulting OVA file - the user running Gitlab-Runner must have write access |
 
 ### How to use Packer
 

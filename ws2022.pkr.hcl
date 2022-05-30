@@ -18,22 +18,31 @@ variable "vcenter_password" {
 variable "vcenter_datacenter" {
   type    = string
   description = "The name of the datacenter within vCenter to build in"
+  default = null
+}
+
+variable "vcenter_cluster" {
+  type    = string
+  description = "The name of the cluster to build in"
+  default = null
+}
+
+variable "vcenter_resource_pool" {
+  type    = string
+  description = "The name of the resource pool to build in"
+  default = null
+}
+
+variable "vcenter_datastore" {
+  type    = string
+  description = "The name of the resource pool to build in"
+  default = null
 }
 
 variable "esx_host" {
   type    = string
   description = "The hostname of the ESX to build on"
-}
-
-variable "esx_user" {
-  type    = string
-  description = "The username to connect with to the ESX server"
-}
-
-variable "esx_password" {
-  type    = string
-  sensitive = true
-  description = "The password for the ESX user"
+  default = null
 }
 
 # Other variables for easy adaption
@@ -114,13 +123,20 @@ packer {
 }
 
 source "vsphere-iso" "ws2022" {
+  vcenter_server      = "${var.vcenter_server}"
+  username            = "${var.vcenter_user}"
+  password            = "${var.vcenter_password}"
+  datacenter          = "${var.vcenter_datacenter}"
+  cluster             = "${var.vcenter_cluster}"
+  host                = "${var.esx_host}"
+  datastore           = "${var.vcenter_datastore}"
+
   CPUs                 = "${var.numcores}"
   RAM                  = "${var.memsize}"
   boot_command         = ["w"]
   boot_wait            = "${var.boot_wait}"
   communicator         = "ssh"
-  cpu_cores            = "${var.numcores}"
-  datacenter           = "${var.vcenter_datacenter}"
+  cpu_cores            = "${var.numcores}"  
   disk_controller_type = ["pvscsi"]
   export {
     force            = true
@@ -129,7 +145,7 @@ source "vsphere-iso" "ws2022" {
   firmware            = "efi"
   floppy_files        = ["configs/autounattend.xml", "configs/sysprep-autounattend.xml", "scripts/install-vmware-tools-from-iso.ps1"]
   guest_os_type       = "windows2019srvNext_64Guest"
-  host                = "${var.esx_host}"
+  
   insecure_connection = true
   iso_checksum        = "${var.iso_checksum}"
   iso_paths           = ["[] /vmimages/tools-isoimages/windows.iso"]
@@ -138,8 +154,7 @@ source "vsphere-iso" "ws2022" {
     network      = "VM Network"
     network_card = "vmxnet3"
   }
-  notes                     = "${var.vm_notes}"
-  password                  = "${var.vcenter_password}"
+  notes                     = "${var.vm_notes}"  
   remove_cdrom              = true
   shutdown_command          = "C:\\Windows\\system32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown /unattend:A:\\sysprep-autounattend.xml"
   shutdown_timeout          = "60m"
@@ -151,8 +166,6 @@ source "vsphere-iso" "ws2022" {
     disk_size             = "${var.disk_size}"
     disk_thin_provisioned = true
   }
-  username       = "${var.vcenter_user}"
-  vcenter_server = "${var.vcenter_server}"
   vm_name        = "${var.vm_name}"
   vm_version     = 18
 }
