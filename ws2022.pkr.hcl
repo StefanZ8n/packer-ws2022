@@ -141,7 +141,7 @@ source "vsphere-iso" "ws2022" {
   export {
     force            = true
     output_directory = "./build"
-    options = nodevicesubtypes 
+    options          = ["nodevicesubtypes"]
   }
   firmware            = "efi"
   floppy_files        = ["configs/autounattend.xml", "configs/sysprep-autounattend.xml", "scripts/install-vmware-tools-from-iso.ps1"]
