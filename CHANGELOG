@@ -1,3 +1,6 @@
+v2.1.1 - 23.10.2022
+- Fixed an issue when export was failing due to missing floppy file
+  
 v2.1.0 - 30.05.2022
 * Updated packer build variables to be able to build on DRS clusters
 - Cleaned some unused build variables
