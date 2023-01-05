@@ -100,7 +100,7 @@
         <component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DriverPaths>
                 <PathAndCredentials wcm:action="add" wcm:keyValue="Floppy">
-                    <Path>a:\</Path>
+                    <Path>F:\</Path>
                 </PathAndCredentials>
             </DriverPaths>
         </component>
@@ -137,7 +137,7 @@
                 <RunSynchronousCommand wcm:action="add">
                     <Description>Install VMware Tools</Description>
                     <Order>1</Order>
-                    <Path>%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -File A:\install-vmware-tools-from-iso.ps1</Path>
+                    <Path>%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -File F:\install-vmware-tools-from-iso.ps1</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
         </component>

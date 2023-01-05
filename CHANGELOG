@@ -1,3 +1,8 @@
+v2.2.0 - 05.01.2023
+* Excluded variables to own file `variables.pkr.hcl`
+* Harmonized build file structure with other build projects
+* Changed from floppy to CD ISO to provide files for the installation
+
 v2.1.1 - 23.10.2022
 - Fixed an issue when export was failing due to missing floppy file
   
