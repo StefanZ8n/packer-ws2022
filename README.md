@@ -61,7 +61,8 @@ This Packer configuration file allows you to build images for VMware Workstation
 
 ### Configure Build Variables
 
-There are some variables which can be changed before building at the top of the `ws2022.pkr.hcl` file.
+All the variables which are changeable by default are in the `variables.pkr.hcl`. 
+Most of them have reasonable defaults, but some don't (like vSphere build environment) and need to be set beforehand.
 You can overwrite these variables in the file, in a variable file or via commandline.
 
 See the [Packer documentation on user variables](https://www.packer.io/docs/templates/hcl_templates/variables) for details.
@@ -98,7 +99,8 @@ To create a Windows Server VM image using a vSphere ESX host:
 
 ```sh
 cd <path-to-git-root-directory>
-packer build ws2022.pkr.hcl
+packer init -upgrade .
+packer build .
 ```
 
 Wait for the build to finish to find the generated OVA file in the `build` folder.

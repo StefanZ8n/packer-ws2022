@@ -50,7 +50,7 @@ source "vsphere-iso" "ws2022" {
   boot_wait = "${var.boot_wait}"  
   boot_command = var.boot_command
 
-  cd_files = ["configs/autounattend.xml", "configs/sysprep-autounattend.xml", "scripts/install-vmware-tools-from-iso.ps1"]
+  cd_files = ["resources/configs/autounattend.xml", "resources/configs/sysprep-autounattend.xml", "resources/scripts/install-vmware-tools-from-iso.ps1"]
   
    # OS Connection Details
   communicator = "ssh"  
@@ -75,7 +75,7 @@ build {
   sources = ["source.vsphere-iso.ws2022"]
 
   provisioner "powershell" {
-    scripts          = ["scripts/win-update.ps1"]
+    scripts          = ["resources/scripts/win-update.ps1"]
     valid_exit_codes = [0, 2300218]
   }
 
@@ -85,7 +85,7 @@ build {
   }
 
   provisioner "powershell" {
-    scripts = ["scripts/win-update.ps1"]
+    scripts = ["resources/scripts/win-update.ps1"]
   }
 
   provisioner "windows-restart" {
@@ -93,11 +93,11 @@ build {
   }
 
   provisioner "powershell" {
-    scripts = ["scripts/adjustments.ps1"]
+    scripts = ["resources/scripts/adjustments.ps1"]
   }
 
   provisioner "powershell" {
-    scripts = ["scripts/cleanup.ps1"]
+    scripts = ["resources/scripts/cleanup.ps1"]
   }
 
   provisioner "windows-restart" {
