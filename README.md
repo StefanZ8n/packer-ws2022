@@ -9,6 +9,7 @@ This Packer configuration file allows you to build images for VMware Workstation
 
 * [Packer](https://www.packer.io/downloads) to run the build process
 * [VMware vCenter](https://www.vmware.com/products/vcenter-server.html) and [VMware ESXI](https://www.vmware.com/products/esxi-and-esx.html) to build on
+* `xorriso`, `mkisofs`, `hdiutil` (macOS) or `oscdimg` (part of Windows ADK) on the build host to build a CD ISO
 * `tar` for building an OVA from the export OVF files
 
 ## Build process
@@ -55,6 +56,7 @@ This Packer configuration file allows you to build images for VMware Workstation
 
 * ESX added to vCenter to build on
 * Buildhost with packer installed (run `packer init`-command before building)
+* ISO build tool in the PATH to be found by `vsphere-iso` packer plug-in
 * For creating an OVA automatically (`gitlab-ci` build): tar
 
 ### Configure Build Variables
@@ -115,7 +117,6 @@ The default credentials for this VM image are:
 - Allow RC `2300218` for win-update script on first provisioner because vmxnet drivers will be pulled from Windows Update breaking the SSH network connection from Packer
 - Postpone first reboot provisioner for `30s` to make sure the update script before finished before rebooting (connection loss because of vmxnet driver update)
 - Run `win-update.ps1` twice, because it finds new updates / replaces updates again
-- 
 
 ## Resources
 

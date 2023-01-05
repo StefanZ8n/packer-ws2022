@@ -50,7 +50,7 @@ source "vsphere-iso" "ws2022" {
   boot_wait = "${var.boot_wait}"  
   boot_command = var.boot_command
 
-  floppy_files = ["configs/autounattend.xml", "configs/sysprep-autounattend.xml", "scripts/install-vmware-tools-from-iso.ps1"]
+  cd_files = ["configs/autounattend.xml", "configs/sysprep-autounattend.xml", "scripts/install-vmware-tools-from-iso.ps1"]
   
    # OS Connection Details
   communicator = "ssh"  
@@ -59,7 +59,7 @@ source "vsphere-iso" "ws2022" {
   ssh_timeout = "1h"
   ssh_username = "${var.os_user}"
   
-  shutdown_command = "C:\\Windows\\system32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown /unattend:A:\\sysprep-autounattend.xml"  
+  shutdown_command = "C:\\Windows\\system32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown /unattend:F:\\sysprep-autounattend.xml"  
   shutdown_timeout = "60m"
   
   export {
